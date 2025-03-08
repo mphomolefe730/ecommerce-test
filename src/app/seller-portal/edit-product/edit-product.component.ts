@@ -24,6 +24,7 @@ export class EditProductComponent implements OnInit {
     description: '',
     stock: 0,
     categories: [],
+    status: false,
     seller: {
       name: '',
       surname: '',
@@ -42,7 +43,8 @@ export class EditProductComponent implements OnInit {
     price: new FormControl(this.productDetails.price),
     description: new FormControl(this.productDetails.description),
     stock: new FormControl(this.productDetails.stock),
-    catergories: new FormControl(this.productDetails.categories)
+    catergories: new FormControl(this.productDetails.categories),
+    status: new FormControl(this.productDetails.status)
   });
 
   constructor(
@@ -64,6 +66,7 @@ export class EditProductComponent implements OnInit {
         this.productDetails.description=temp.description;
         this.productDetails.stock=temp.stock;
         this.productDetails.seller=temp.seller;
+        this.productDetails.status=temp.status;
         this.productDetails.categories=temp.categories;
       });
     });

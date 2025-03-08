@@ -1,5 +1,5 @@
 export const environment = {
-	// renderApiLink: 'http://localhost:3000',
+	//renderApiLink: 'http://localhost:3000',
 	renderApiLink: 'https://ecommerce-test-api-production.up.railway.app',
 	firebaseConfig: {
 		apiKey: "AIzaSyC0pOtd-Zt9qLuPbRDyAMgsWdkP978MjE8",

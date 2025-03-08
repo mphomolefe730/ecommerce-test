@@ -39,6 +39,10 @@
             <input name="stock" type="text" formControlName="stock"/>
         </div>
         <div>
+            <label for="status">Product Active</label>
+            <input name="status" type="checkbox" formControlName="status"/>
+        </div>
+        <div>
             <p>category: </p>
             <div id="productCategoryDisplay">
                 <p *ngFor="let cat of categories">

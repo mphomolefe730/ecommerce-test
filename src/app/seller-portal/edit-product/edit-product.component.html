@@ -21,6 +21,10 @@
         <label for="stock">Product Stock:</label>
         <input type="text" formControlName="stock" [(ngModel)]="productDetails.stock"/>
     </div>
+    <div>
+        <label for="status">Product Active:</label>
+        <input type="checkbox" formControlName="status" [(ngModel)]="productDetails.status"/>
+    </div>
     <div class="categoriesHolder">
         <span *ngFor="let cat of productDetails.categories" class="categories">
             <span>{{cat.name}} <img (click)="removeCategory(cat._id)" [src]="closeIcon"/></span>

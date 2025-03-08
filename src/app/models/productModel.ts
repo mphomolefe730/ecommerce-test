@@ -8,6 +8,7 @@ export interface productModel{
     image:string,
     description:string,
     stock:number,
+    status:boolean,
     seller:userModel,
     categories:categoryModel[]
 }

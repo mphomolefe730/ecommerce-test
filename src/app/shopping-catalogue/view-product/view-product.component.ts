@@ -38,6 +38,7 @@ export class ViewProductComponent implements OnInit{
         name:''
       }
     },
+    status:false,
     categories: []
   };
   productOptions:number[]=[
@@ -99,6 +100,8 @@ export class ViewProductComponent implements OnInit{
           this.shoppingCart.items.forEach((productItem:any)=>{
             if (productItem.productId._id == data.productid) this.purchasing= 'removeFromCart';
           })
+          //this.productDetails.status == false ? this.buttonDisabled = false : this.buttonDisabled = false;
+          if (this.productDetails.status == false) this.purchasing = "unavailable"
           this.buttonDisabled=false;
         })
       });

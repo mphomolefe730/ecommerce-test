@@ -30,6 +30,7 @@ export class UploadProductComponent implements OnInit{
     image:new FormControl(''),
     stock: new FormControl(0,Validators.required),
     seller: new FormControl(this.userId),
+    status: new FormControl(false, Validators.required),
     categories:new FormControl([]),
 
   })
@@ -91,6 +92,7 @@ export class UploadProductComponent implements OnInit{
           description: this.uploadProductForm.value.description,
           stock: this.uploadProductForm.value.stock,
           seller: productInformation.seller,
+          status: this.uploadProductForm.value.status,
           categories: productInformation.categories
         }
         this.productService.updateproductById(object._id,object).subscribe((updatedProduct:any)=>{
