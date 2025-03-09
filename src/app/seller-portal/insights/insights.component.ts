@@ -1,5 +1,6 @@
-import { AfterContentInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js/auto';
+import { ChartModel } from 'src/app/models/chartModel';
 import { inventoryModel } from 'src/app/models/inventoryModel';
 import { orderStatus } from 'src/app/models/orderStatus';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,14 +12,16 @@ import { RoleService } from 'src/app/services/role.service';
   templateUrl: './insights.component.html',
   styleUrls: ['./insights.component.scss']
 })
-export class InsightsComponent implements AfterContentInit{
+export class InsightsComponent implements OnInit{
   user:string='';
   userId:string='';
   chart:any;
-  unfurfilled:number=0;
-  complete:number=0;
-  declined:number=0;
-  pending:number=0;
+  chart2:any;
+  
+  unfurfilled:ChartModel = {totalRevenue: 0, numberOfOrders: 0};
+  complete:ChartModel = {totalRevenue: 0, numberOfOrders: 0};
+  declined:ChartModel= {totalRevenue: 0, numberOfOrders: 0};
+  pending:ChartModel = {totalRevenue: 0, numberOfOrders: 0};
   
   barColors = [
     "#b91d47",
@@ -34,53 +37,88 @@ export class InsightsComponent implements AfterContentInit{
     private authService:AuthService,
     private roleService:RoleService
   ){}
-  ngAfterContentInit(): void {
-    this.authService.loggedInUser.subscribe(async (data)=>{
-      this.user= await data.name;
-      this.userId= await data.userId;
-    })
-    this.authService.loggedInUser.subscribe((userInformation)=>{
-      const userRole:any = this.roleService.role.filter((a)=> a._id == userInformation.role);
+  
+  ngOnInit(): void {
+    this.authService.loggedInUser.subscribe(async (userInformation)=>{
+      this.user= await userInformation.name;
+      this.userId= await userInformation.userId;
+      const userRole:any = await this.roleService.role.filter((a)=> a._id == userInformation.role)[0];
+      
       if (userRole.role == "seller") {
         this.inventoryService.getAllSellerOrders(this.userId).subscribe((data:any)=>{
           let product:any= data.order;
+
           product.forEach((product:inventoryModel)=>{
             switch(product.status){
               case "UNFURFILLED": {
-                this.unfurfilled+=1;
+                this.unfurfilled.numberOfOrders+=1;
+                this.unfurfilled.totalRevenue += product.total;
                 break;
               }
               case "PENDING": {
-                this.pending+=1;
+                this.pending.numberOfOrders+=1;
+                this.pending.totalRevenue += product.total;
                 break;
               }
               case "DECLINED": {
-                this.declined+=1;
+                this.declined.numberOfOrders+=1;
+                this.declined.totalRevenue += product.total;
                 break;
               }
               default:{
-                this.complete+=1;
+                this.complete.numberOfOrders+=1;
+                this.complete.totalRevenue += product.total;
               }
             }
           })
+          
           this.chart = new Chart('canvas', {
             type: 'doughnut',
             data: {
               labels: this.statuses,
               datasets: [
                 {
-                  data: [this.unfurfilled, this.complete, this.declined, this.pending],
+                  data: [this.unfurfilled.numberOfOrders, this.complete.numberOfOrders, this.declined.numberOfOrders, this.pending.numberOfOrders],
+                  backgroundColor:this.barColors,
+                  borderWidth: 1,
+                },
+              ],
+            },
+              options: {
+                  plugins: {
+                      title: {
+                          display: true,
+                          text: 'Order Qauntity Ratio'
+                      }
+                  }
+              }
+          });
+
+          this.chart2 = new Chart('canvas2', {
+            type: 'bar',
+            data: {
+              labels: this.statuses,
+              datasets: [
+                {
+                  data: [this.unfurfilled.totalRevenue, this.complete.totalRevenue, this.declined.totalRevenue, this.pending.totalRevenue],
                   backgroundColor:this.barColors,
                   borderWidth: 1,
                 },
               ],
             },
             options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Revenue By Category'
+                    }
+                }
             },
           });
+        //################################################################################
         });
       }
     })
-  }
-  
+  };
+
 }
