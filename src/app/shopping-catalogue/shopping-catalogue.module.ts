@@ -11,6 +11,7 @@ import { CartComponent } from './cart/cart.component';
 import { SearchComponent } from './search/search.component';
 import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { CartFinalizeOrderComponent } from './cart-finalize-order/cart-finalize-order.component';
+import { ReviewComponent } from './review/review.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { CartFinalizeOrderComponent } from './cart-finalize-order/cart-finalize-
     LoginComponent,
     SearchComponent,
     ViewProfileComponent,
-    CartFinalizeOrderComponent
+    CartFinalizeOrderComponent,
+    ReviewComponent
   ],
   imports: [
     CommonModule,

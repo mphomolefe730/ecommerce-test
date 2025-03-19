@@ -212,3 +212,12 @@ h1{
         max-width: 60%;
     }
 }
+.warningAlert{
+  background-color: red;
+  color: white;
+    p{
+      margin: 0.40rem;
+      padding: 0.40rem;
+      text-transform: uppercase;
+    }
+}

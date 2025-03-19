@@ -27,4 +27,7 @@ export class InventoryService {
   updateInventoryStatus(id:number,status:string){
     return this.http.put(`${environment.renderApiLink}/api/inventory/${id}`,{status:status});
   }
+  getInventoryByUserProductIdAndStatus(productId:string,userId:string, status:string){
+    return this.http.get(`${environment.renderApiLink}/api/inventory/${productId}/${userId}/${status}`);
+  }
 }

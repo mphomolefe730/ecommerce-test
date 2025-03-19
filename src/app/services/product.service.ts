@@ -58,4 +58,10 @@ export class ProductService implements OnInit {
   getProductBySearch(query:{search:string}){
     return this.http.post(`${environment.renderApiLink}/api/products/items/search`,query);
   }
+  getProductReviews(productId:string){
+    return this.http.get(`${environment.renderApiLink}/api/review/${productId}`);
+  }
+  addProductReview(reviewForm:{review:string, orderId:string, rank:number, orderStatus:string,productId:string}){
+    return this.http.put(`${environment.renderApiLink}/api/review/${reviewForm.productId}`,reviewForm)
+  }
 }

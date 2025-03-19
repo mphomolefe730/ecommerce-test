@@ -1,0 +1,14 @@
+form{
+  background-color: rgba(245,245,192,1);
+  padding: var(--border-10);
+  margin-top: 10px;
+  border-radius: var(--border-10);
+  margin: 5px;
+  .stars{
+    text-align:center;
+  }
+  textarea{
+    width:98%;
+    min-height: 150px;
+  }
+}

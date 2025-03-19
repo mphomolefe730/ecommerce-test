@@ -9,6 +9,7 @@ import { SearchComponent } from './search/search.component';
 import { userGuard } from '../auth/user.guard';
 import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { CartFinalizeOrderComponent } from './cart-finalize-order/cart-finalize-order.component';
+import { ReviewComponent } from './review/review.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,9 @@ const routes: Routes = [
   },{
     path:'cart/final-order/:id',
     component:CartFinalizeOrderComponent
+  },{
+    path: 'review/pd/:productId',
+    component: ReviewComponent
   }
 ];
 

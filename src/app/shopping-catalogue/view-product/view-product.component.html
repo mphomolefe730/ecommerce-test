@@ -1,5 +1,10 @@
 <div id="main">
     <div class="main-image" [ngClass]="{dontShow: app.deviceWidth<810}">
+      <div class="warningAlert" *ngIf="productDetails.status!=false" [ngSwitch]=productDetails.stock>
+          <p *ngSwitchCase=0>Out of Stock</p>
+          <p *ngSwitchCase=1>Last Item Left</p>
+          <p *ngSwitchCase=2>Stock Is Running Out</p>
+      </div>
         <img [src]="productDetails.image" alt="">
     </div>
     <div class="mobile">
@@ -32,4 +37,7 @@
             <button id="purchase-btn" style="background-color: transparent;border: 2px solid black;color: black;" (click)="copyToClipBoard()">share item</button>
         </div>
         <app-recommandations></app-recommandations>
+        <div>
+            <button id="purchase-btn" (click)="viewReviews()">View Comments/Review</button>
+        </div>
 </div>

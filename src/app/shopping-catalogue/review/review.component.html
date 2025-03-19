@@ -1,0 +1,30 @@
+<div>
+  <form [formGroup]="reviewForm" *ngIf="notAllowedToReview!=true" (ngSubmit)="submitReview()">
+      <div class="stars">
+        <label for="review" *ngFor="let rank of ratings">
+          <input type='radio' [(ngModel)]='userRating' [value]='rank.value' required  formControlName='rank'/>
+          {{rank.label}}
+        </label>
+      </div>
+      <div>
+          <div><label for="review">Comment:</label></div>
+          <textarea placeHolder="write review about product" type="text" formControlName="comment" [(ngModel)]="userReview"></textarea>
+      </div>
+      <div>
+        <input class="purchase-btn" type="submit" value="submit"/>
+      </div>
+  </form>
+
+  <div class="holderImages" *ngIf="noReviews==true">
+        <h1>Empty</h1>
+        <p>{{ errorMessage }}</p>
+  </div>
+  <div *ngIf="noReviews!=true">
+    <div *ngFor="let r of reviews" class="item" style="max-width: none">
+      <h3>Rank: {{ r.rank }} / 5</h3>
+      <p style="color: rgba(0, 0, 0, 0.5)"> {{ r.comment }} </p>
+        <span>date: {{ r.createdAt }} </span>
+
+    </div>
+  </div>
+</div>

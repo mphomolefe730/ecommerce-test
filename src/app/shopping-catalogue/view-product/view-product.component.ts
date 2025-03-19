@@ -8,6 +8,7 @@ import { cartModel } from 'src/app/models/cartModel';
 import { AuthService } from 'src/app/services/auth.service';
 import { NgToastService } from 'ng-angular-popup';
 import { CartService } from 'src/app/services/cart.service';
+import { environment } from 'src/environment/environment';
 
 @Component({
   selector: 'app-view-product',
@@ -64,6 +65,7 @@ export class ViewProductComponent implements OnInit{
       price:0
     }]
   };
+  stars:number = 0;
   inCartSellerName:string='';
   sellersid: any;
   constructor(
@@ -100,7 +102,8 @@ export class ViewProductComponent implements OnInit{
           this.shoppingCart.items.forEach((productItem:any)=>{
             if (productItem.productId._id == data.productid) this.purchasing= 'removeFromCart';
           })
-          //this.productDetails.status == false ? this.buttonDisabled = false : this.buttonDisabled = false;
+          this.stars = item.stars;
+          if (this.productDetails.stock == 0) this.purchasing = "unavailable";
           if (this.productDetails.status == false) this.purchasing = "unavailable"
           this.buttonDisabled=false;
         })
@@ -109,9 +112,13 @@ export class ViewProductComponent implements OnInit{
   }
 
   copyToClipBoard(){
-    this.clipboard.copy('https://ecommerceconnect.co.za/#'+this.router.url);
+    this.clipboard.copy(environment.frontendLink+this.router.url);
     this.toaster.success({detail: "SUCCESS",summary:'link copied to clipboard',duration:2000});
   }
+
+  viewReviews(){
+    this.router.navigate([`review/pd/${this.productDetails._id}`]);
+  };
 
   async addItemToCart(){
     if (this.userId===''){

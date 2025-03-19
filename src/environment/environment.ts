@@ -1,6 +1,7 @@
 export const environment = {
-	//renderApiLink: 'http://localhost:3000',
-	renderApiLink: 'https://ecommerce-test-api-production.up.railway.app',
+	renderApiLink: 'http://localhost:3000',
+	//renderApiLink: 'https://ecommerce-test-api-production.up.railway.app',
+        frontendLink: 'https://ecommerce-test-production-1b0f.up.railway.app',
 	firebaseConfig: {
 		apiKey: "AIzaSyC0pOtd-Zt9qLuPbRDyAMgsWdkP978MjE8",
 		authDomain: "ecommerce-connect-c7850.firebaseapp.com",
