@@ -56,6 +56,7 @@ export class ReviewComponent implements OnInit{
       this.productService.getProductReviews(data.productId).subscribe({
             next: async (reviewData:any)=>{
               this.productId = data.productId;
+              console.log(reviewData);
               //handling for no comments sent by back end
               if (reviewData.status == 'fail'){
                 console.log(reviewData);
