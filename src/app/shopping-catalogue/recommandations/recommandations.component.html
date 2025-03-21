@@ -1,16 +1,14 @@
-<p>recommandations works!</p>
-<!-- <div id="productItemsDisplay">
-    <ng-container *ngFor="let product of productsToShow">
-        <div *ngIf="product.categories.includes(i._id)" class="item" (click)="viewProduct(product._id,product.name)">
-            <img src="${{demoImage}}" class="product-image" alt="Product Image"/>
+<div id="productItemsDisplay">
+    <ng-container *ngFor="let product of recommendations">
+        <div class="item" (click)="viewProduct(product._id,product.name)">
+            <img style="width:100%" src={{product.image}} class="product-image" alt="Product Image"/>
             <div class="ItemDescription">
-                <h1 title="${{product.name}}" class="productname"> {{product.name}} </h1>
+                <h1 title={{product.name}} class="productname"> {{product.name}} </h1>
                 <p class="productdescription"> {{product.description}} </p>
                 <div class="productprice">
                     <div><span>R {{product.price}}<br/>Rating</span></div>
-                    <button class="purchase-btn" data-id="{{product._id}}">PURCHASE</button>
                 </div>
             </div>
         </div>
     </ng-container>
-</div> -->
+</div>
