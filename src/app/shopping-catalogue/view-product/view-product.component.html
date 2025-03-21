@@ -9,7 +9,7 @@
     </div>
     <div class="mobile">
         <div class="main-image" [ngClass]="{dontShow: app.deviceWidth>809}">
-            <img [src]="productDetails.image" alt="">
+            <img [src]="productDetails.image" style="width:100%" alt="">
         </div>
         <div class="splitByTwo ">
             <div class="second">
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="splitByTwo">
-            <div><h3>{{productDetails.name}}</h3></div>
+            <div><h3 style="max-width: 500px">{{productDetails.name}}</h3></div>
             <div><h3>R {{productDetails.price}}</h3></div>
         </div>
 
@@ -36,8 +36,11 @@
         <div>
             <button id="purchase-btn" style="background-color: transparent;border: 2px solid black;color: black;" (click)="copyToClipBoard()">share item</button>
         </div>
-        <app-recommandations></app-recommandations>
+        <app-recommandations *ngIf="productRecommendations.length > 0" [recommendations]="productRecommendations"></app-recommandations>
         <div>
             <button id="purchase-btn" (click)="viewReviews()">View Comments/Review</button>
         </div>
 </div>
+<!---div>
+      <app-recommandations *ngIf="productRecommendations.length > 0" [recommendations]="productRecommendations" id='desktopRecommendations'></app-recommandations>
+</div--->

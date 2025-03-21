@@ -19,6 +19,7 @@ import { environment } from 'src/environment/environment';
 export class ViewProductComponent implements OnInit{
   purchasing:string='addToCart';
   productSellerId:string='';
+  page:number=0;
   buttonDisabled:boolean = true;
   productDetails:productModel={
     name: '',
@@ -47,8 +48,9 @@ export class ViewProductComponent implements OnInit{
   ];
   cartId:string='';
   user:string='';
-  userId:string='';
+  userId:string='undefined';
   selectedOption:number=1;
+  productRecommendations:any[] =[];
   shoppingCart: cartModel={
     _id:'',
     userId:'',
@@ -65,7 +67,7 @@ export class ViewProductComponent implements OnInit{
       price:0
     }]
   };
-  stars:number = 0;
+  //stars:number = 0;
   inCartSellerName:string='';
   sellersid: any;
   constructor(
@@ -92,23 +94,28 @@ export class ViewProductComponent implements OnInit{
       }
 
       this.activeRouter.params.subscribe((data:any)=>{
-        this.productService.getProductById(data.productid).subscribe((item:any)=>{
-          this.sellersid = item.seller._id;
-          this.productSellerId = item.seller._id;
-          this.productDetails = item;
+        this.productService.getProductByIdAndRecommendations(data.productid,this.userId,this.page).subscribe((item:any)=>{
+          this.sellersid = item.productDetails.seller._id;
+          this.productSellerId = item.productDetails.seller._id;
+          this.productDetails = item.productDetails;
           this.productDetails.seller.email='';
           this.productDetails.seller.surname='';
           this.productDetails.seller.number=0;
           this.shoppingCart.items.forEach((productItem:any)=>{
             if (productItem.productId._id == data.productid) this.purchasing= 'removeFromCart';
           })
-          this.stars = item.stars;
+
+          //clear any old recommendations
+          this.productRecommendations = [];
+          item.recommendations.forEach((r:any)=>{
+            this.productRecommendations.push(r);
+          });
           if (this.productDetails.stock == 0) this.purchasing = "unavailable";
           if (this.productDetails.status == false) this.purchasing = "unavailable"
           this.buttonDisabled=false;
         })
       });
-    });    
+    });
   }
 
   copyToClipBoard(){
